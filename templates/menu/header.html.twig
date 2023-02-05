@@ -7,6 +7,7 @@
 {% if app.user %}
     <a href="{{ url('app_question_index') }}"><button>My questions</button></a>
     <a href="{{ url('app_answer_index') }}"><button>My answers</button></a>
+    <a href="{{ url('app_user_edit', {'id': app.user.id}) }}"><button>Edit profile</button></a>
     <a href="{{ url('app_logout') }}"><button>Logout</button></a>
 {% else %}
     <a href="{{ url('app_login') }}"><button>Login</button></a>
