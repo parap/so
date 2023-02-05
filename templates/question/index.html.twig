@@ -8,7 +8,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Content</th>
                 <th>actions</th>
             </tr>
@@ -16,7 +15,6 @@
         <tbody>
         {% for question in questions %}
             <tr>
-                <td>{{ question.id }}</td>
                 <td>{{ question.content }}</td>
                 <td>
                     <a href="{{ path('app_question_show', {'id': question.id}) }}">show</a>
@@ -30,6 +28,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_question_new') }}">Create new</a>
 {% endblock %}
