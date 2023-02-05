@@ -33,7 +33,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-         - { path: ^/question, roles: ROLE_USER }
+         - { path: ^/question/edit/*, roles: ROLE_USER }
+         - { path: ^/question/*, roles: 'IS_AUTHENTICATED_ANONYMOUSLY' }
+         - { path: ^/question/$, roles: ROLE_USER }
          - { path: ^/answer, roles: ROLE_USER }
          - { path: ^/rating, roles: ROLE_USER }
 

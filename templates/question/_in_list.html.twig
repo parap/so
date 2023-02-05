@@ -12,7 +12,7 @@
             {% if app.user and app.user.canAnswerQuestion(question) %}
                 <a href="{{ url('app_answer_new', {'id': question.id}) }}"><button>Answer</button></a>
             {% endif %}
-            {% set answer = app.user.hasAnswerTo(question) %}
+            {% set answer = app.user ? app.user.hasAnswerTo(question) : null %}
             {% if app.user and answer %}
                 <a href="{{ url('app_answer_edit', {'id': answer.id}) }}"><button>Update your answer</button></a>
             {% endif %}

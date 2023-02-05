@@ -28,7 +28,7 @@
     </table>
 <br/>
 <br/>
-    <a href="{{ path('app_question_index') }}">back to list</a>
+    <a href="{{ path(app.user ? 'app_question_index' : 'homepage') }}">back to list</a>
 
     {% if app.user == question.user %}
         <a href="{{ path('app_question_edit', {'id': question.id}) }}">edit</a>

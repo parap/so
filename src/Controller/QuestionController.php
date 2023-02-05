@@ -58,7 +58,7 @@ class QuestionController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="app_question_edit", methods={"GET", "POST"})
+     * @Route("/edit/{id}", name="app_question_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Question $question, QuestionRepository $questionRepository): Response
     {
@@ -79,18 +79,5 @@ class QuestionController extends AbstractController
             'question' => $question,
             'form' => $form,
         ]);
-    }
-
-    /**
-     * @Route("/{id}", name="app_question_delete", methods={"POST"})
-     */
-    public function delete(Request $request, Question $question, QuestionRepository $questionRepository): Response
-    {
-        return new Response('Sorry, questions cannot be deleted');
-        if ($this->isCsrfTokenValid('delete'.$question->getId(), $request->request->get('_token'))) {
-            $questionRepository->remove($question, true);
-        }
-
-        return $this->redirectToRoute('app_question_index', [], Response::HTTP_SEE_OTHER);
     }
 }
