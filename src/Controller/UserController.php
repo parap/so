@@ -47,6 +47,12 @@ class UserController extends AbstractController
                     return new Response('Failed to upload image: ' . $this->getParameter('avatars_directory'). ' is not writable');
                 }
 
+                // Delete old avatar file, if exists
+                $oldFileName = $this->getParameter('avatars_directory').'/'.$user->getAvatarFileName();
+                if (file_exists($oldFileName)) {
+                    unlink($oldFileName);
+                }
+
                 // Move the file to the directory where avatars are stored
                 try {
                     $avatarFile->move(
