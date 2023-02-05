@@ -257,9 +257,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return (string)$this->username;
     }
 
-    public function canAnswerQuestion(Question $question)
+    /**
+     * @param Question $question
+     * @return Answer|bool
+     */
+    public function hasAnswerTo(Question $question)
+    {
+        foreach ($question->getAnswers() as $answer) {
+            if ($answer->getUser() === $this) {
+                return $answer;
+            }
+        }
+
+        return false;
+    }
+
+    public function canAnswerQuestion(Question $question): bool
     {
         if ($this->questions->contains($question)) {
+            return false;
+        }
+
+        if ($this->hasAnswerTo($question) instanceof Answer) {
             return false;
         }
 

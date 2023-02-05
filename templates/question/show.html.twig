@@ -8,16 +8,22 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Author</th>
-                <td>{{ question.user.username }}</td>
+                <th>{{ question.user.username }}</th>
+                <td><h3>{{ question.content }}</h3></td>
             </tr>
+        <tr>
+            <th colspan="2">Answers:</th>
+        </tr>
+        {% for answer in question.answers %}
             <tr>
-                <th>Content</th>
-                <td>{{ question.content }}</td>
+                <th>{{ answer.user.username }}</th>
+                <td>{{ answer.content }}</td>
             </tr>
+        {% endfor %}
         </tbody>
     </table>
-
+<br/>
+<br/>
     <a href="{{ path('app_question_index') }}">back to list</a>
 
     {% if app.user == question.user %}
