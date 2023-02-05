@@ -20,7 +20,7 @@ class Question
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=16384)
+     * @ORM\Column(type="text")
      */
     private $content;
 

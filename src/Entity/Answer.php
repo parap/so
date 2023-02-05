@@ -42,6 +42,11 @@ class Answer
      */
     private $ratings;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $totalRatingsCount;
+
     public function __construct()
     {
         $this->ratings = new ArrayCollection();
@@ -118,13 +123,27 @@ class Answer
         return $this;
     }
 
-    public function getRatingTotal()
+    public function getTotalRatingsCount(): ?int
     {
-        $total = 0;
-        foreach ($this->ratings as $rating) {
-            $total += (int)$rating->getValue();
-        }
+        return $this->totalRatingsCount;
+    }
 
-        return $total;
+    public function setTotalRatingsCount(?int $totalRatingsCount): self
+    {
+        $this->totalRatingsCount = $totalRatingsCount;
+
+        return $this;
+    }
+    public function decreaseTotalRatingsCount(): self
+    {
+        $this->totalRatingsCount = $this->totalRatingsCount-1;
+
+        return $this;
+    }
+    public function increaseTotalRatingsCount(): self
+    {
+        $this->totalRatingsCount = $this->totalRatingsCount + 1;
+
+        return $this;
     }
 }

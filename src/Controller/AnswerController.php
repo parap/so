@@ -103,7 +103,7 @@ class AnswerController extends AbstractController
      * @return JsonResponse|Response
      * @throws \TypeError
      */
-    public function voteUp(Answer $answer, RatingRepository $ratingRepository)
+    public function voteUp(Answer $answer, RatingRepository $ratingRepository, AnswerRepository $answerRepository)
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -115,6 +115,10 @@ class AnswerController extends AbstractController
         $rating = $user->voteUp($answer);
 
         $ratingRepository->add($rating, true);
+        $answer->increaseTotalRatingsCount();
+
+        $ratingRepository->add($rating, true);
+        $answerRepository->add($answer, true);
 
         return new JsonResponse(['success' => true]);
     }
@@ -124,7 +128,7 @@ class AnswerController extends AbstractController
      * @return JsonResponse|Response
      * @throws \TypeError
      */
-    public function voteDown(RatingRepository $ratingRepository, Answer $answer)
+    public function voteDown(RatingRepository $ratingRepository, Answer $answer, AnswerRepository $answerRepository)
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -134,8 +138,10 @@ class AnswerController extends AbstractController
         }
 
         $rating = $user->voteDown($answer);
+        $answer->decreaseTotalRatingsCount();
 
         $ratingRepository->add($rating, true);
+        $answerRepository->add($answer, true);
 
         return new JsonResponse(['success' => true]);
     }

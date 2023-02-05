@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Question;
 use App\Form\QuestionType;
+use App\Repository\AnswerRepository;
 use App\Repository\QuestionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,10 +51,13 @@ class QuestionController extends AbstractController
     /**
      * @Route("/{id}", name="app_question_show", methods={"GET"})
      */
-    public function show(Question $question): Response
+    public function show(Question $question, AnswerRepository $answerRepository): Response
     {
+        $answers = $answerRepository->findBy(['question' => $question], ['totalRatingsCount' => 'DESC']);
+
         return $this->render('question/show.html.twig', [
             'question' => $question,
+            'answers' => $answers
         ]);
     }
 
