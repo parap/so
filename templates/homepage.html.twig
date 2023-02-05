@@ -26,7 +26,14 @@
             <br>
             <br>
             <div>Homepage</div>
-            <div>List of questions</div>
+            <div>
+                <h3>List of questions</h3>
+                {% for question in questions %}
+                    {% include 'question/_in_list.html.twig' %}
+                {% else %}
+                    <div>No questions found</div>
+                {% endfor %}
+            </div>
         {% endblock %}
     </body>
 </html>
