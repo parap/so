@@ -284,4 +284,84 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $question->getUser()->getId() <> $this->getId();
     }
+
+
+    public function canVoteUp(Answer $answer)
+    {
+        if ($answer->getUser() === $this) {
+            return false;
+        }
+
+        foreach ($this->ratings as $userRating) {
+            foreach ($answer->getRatings() as $answerRating) {
+                if ($userRating === $answerRating && $userRating->getValue() == '1') {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public function canVoteDown(Answer $answer)
+    {
+        if ($answer->getUser() === $this) {
+            return false;
+        }
+
+        foreach ($this->ratings as $userRating) {
+            foreach ($answer->getRatings() as $answerRating) {
+                if ($userRating === $answerRating && $userRating->getValue() == '-1') {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public function voteUp(Answer $answer)
+    {
+        if (!$this->canVoteUp($answer)) {
+            return false;
+        }
+
+        foreach ($this->ratings as $userRating) {
+            foreach ($answer->getRatings() as $answerRating) {
+                if ($userRating === $answerRating) {
+                    return $userRating->setValue((int)$userRating->getValue() + 1);
+                }
+            }
+        }
+
+        $rating = new Rating();
+
+        return $rating
+            ->setUser($this)
+            ->setAnswer($answer)
+            ->setValue('1');
+    }
+
+    public function voteDown(Answer $answer)
+    {
+        if (!$this->canVoteDown($answer)) {
+            return false;
+        }
+
+        foreach ($this->ratings as $userRating) {
+            foreach ($answer->getRatings() as $answerRating) {
+                if ($userRating === $answerRating) {
+                    return $userRating->setValue((int)$userRating->getValue() - 1);
+                }
+            }
+        }
+
+        $rating = new Rating();
+
+        return $rating
+            ->setUser($this)
+            ->setAnswer($answer)
+            ->setValue('-1');
+    }
+
 }

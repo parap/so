@@ -95,16 +95,5 @@ class AnswerController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="app_answer_delete", methods={"POST"})
-     */
-    public function delete(Request $request, Answer $answer, AnswerRepository $answerRepository): Response
-    {
-        return new Response('Sorry, answers cannot be deleted');
-        if ($this->isCsrfTokenValid('delete'.$answer->getId(), $request->request->get('_token'))) {
-            $answerRepository->remove($answer, true);
-        }
-
-        return $this->redirectToRoute('app_answer_index', [], Response::HTTP_SEE_OTHER);
-    }
+    
 }

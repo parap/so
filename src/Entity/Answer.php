@@ -38,6 +38,7 @@ class Answer
 
     /**
      * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="answer", orphanRemoval=true)
+     * @var Rating[]|[]
      */
     private $ratings;
 
@@ -88,7 +89,7 @@ class Answer
     }
 
     /**
-     * @return Collection<int, Rating>
+     * @return Collection|[Rating]
      */
     public function getRatings(): Collection
     {

@@ -1,12 +1,12 @@
-<a href="{{ url('homepage') }}"><button>Homepage</button></a>
-
 {% if app.user %}
     <div>Hello {{ app.user.username }}</div>
+{% endif %}
 
+    <a href="{{ url('homepage') }}"><button>Homepage</button></a>
 
+{% if app.user %}
     <a href="{{ url('app_question_index') }}"><button>My questions</button></a>
     <a href="{{ url('app_answer_index') }}"><button>My answers</button></a>
-
     <a href="{{ url('app_logout') }}"><button>Logout</button></a>
 {% else %}
     <a href="{{ url('app_login') }}"><button>Login</button></a>

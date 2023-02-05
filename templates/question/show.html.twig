@@ -19,7 +19,11 @@
         {% for answer in question.answers %}
             <tr>
                 <th>{{ answer.user.username }}</th>
-                <td>{{ answer.content }}</td>
+                <td>
+                    {{ answer.content }}
+                    {% if app.user and app.user.canVoteUp(answer) %}+{% endif %}
+                    {% if app.user and app.user.canVoteDown(answer) %}-{% endif %}
+                </td>
             </tr>
         {% else %}
             <th colspan="2">No answers yet</th>
