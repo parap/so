@@ -13,7 +13,6 @@ class QuestionType extends AbstractType
     {
         $builder
             ->add('content')
-            ->add('user')
         ;
     }
 

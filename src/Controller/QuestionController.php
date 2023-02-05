@@ -31,6 +31,7 @@ class QuestionController extends AbstractController
     public function new(Request $request, QuestionRepository $questionRepository): Response
     {
         $question = new Question();
+        $question->setUser($this->getUser());
         $form = $this->createForm(QuestionType::class, $question);
         $form->handleRequest($request);
 
