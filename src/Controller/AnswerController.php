@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Answer;
+use App\Entity\Question;
+use App\Entity\User;
 use App\Form\AnswerType;
 use App\Repository\AnswerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @Route("/answer")
@@ -26,11 +29,21 @@ class AnswerController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_answer_new", methods={"GET", "POST"})
+     * @Route("/new/{id}", name="app_answer_new", methods={"GET", "POST"})
+     *
+     * @ParamConverter("question")
      */
-    public function new(Request $request, AnswerRepository $answerRepository): Response
+    public function new(Request $request, AnswerRepository $answerRepository, Question $question): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if (!$user->canAnswerQuestion($question)) {
+            return new Response('You cannot answer this question because it is your question or you have already gave answer');
+        }
+
         $answer = new Answer();
+        $answer->setUser($user);
         $form = $this->createForm(AnswerType::class, $answer);
         $form->handleRequest($request);
 
@@ -42,6 +55,7 @@ class AnswerController extends AbstractController
 
         return $this->renderForm('answer/new.html.twig', [
             'answer' => $answer,
+            'question' => $question,
             'form' => $form,
         ]);
     }

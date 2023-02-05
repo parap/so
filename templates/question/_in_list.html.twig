@@ -3,10 +3,16 @@
     <tr>
         <th>author</th>
         <td>{{ question.user.username }}</td>
+        <td></td>
     </tr>
     <tr>
         <th>Content</th>
         <td>{{ question.content }}</td>
+        <td>
+            {% if app.user and app.user.canAnswerQuestion(question) %}
+            <a href="{{ url('app_answer_new', {'id': question.id}) }}"><button>Answer</button></a>
+            {% endif %}
+        </td>
     </tr>
     </tbody>
 </table>

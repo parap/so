@@ -256,4 +256,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return (string)$this->username;
     }
+
+    public function canAnswerQuestion(Question $question)
+    {
+        if ($this->questions->contains($question)) {
+            return false;
+        }
+
+        return $question->getUser()->getId() <> $this->getId();
+    }
 }
