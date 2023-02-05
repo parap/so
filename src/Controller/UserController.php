@@ -23,7 +23,7 @@ class UserController extends AbstractController
      * @Route("/profile", name="app_user_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, UserRepository $userRepository,
-                         UserPasswordHasherInterface $userPasswordHasher, SluggerInterface $slugger): Response
+                         UserPasswordHasherInterface $userPasswordHasher): Response
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -36,10 +36,8 @@ class UserController extends AbstractController
             // this condition is needed because the 'avatar' field is not required
             // so the PDF file must be processed only when a file is uploaded
             if ($avatarFile) {
-                $originalFilename = pathinfo($avatarFile->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $avatarFile->guessExtension();
+                $newFilename = uniqid() . '.' . $avatarFile->guessExtension();
 
                 if (!file_exists($this->getParameter('avatars_directory'))) {
                     return new Response('Failed to upload image: ' . $this->getParameter('avatars_directory'). ' does not exist');
