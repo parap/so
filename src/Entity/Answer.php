@@ -117,4 +117,14 @@ class Answer
 
         return $this;
     }
+
+    public function getRatingTotal()
+    {
+        $total = 0;
+        foreach ($this->ratings as $rating) {
+            $total += (int)$rating->getValue();
+        }
+
+        return $total;
+    }
 }

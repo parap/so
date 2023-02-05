@@ -10,6 +10,7 @@
             <tr>
                 <th>{{ question.user.username }}</th>
                 <td><h3>{{ question.content }}</h3></td>
+                <td></td>
             </tr>
             {% if question.answers.count > 0 %}
         <tr>
@@ -23,12 +24,15 @@
                     {{ answer.content }}
 
                     {% if app.user and app.user.canVoteUp(answer) %}
-                    <span data-id="{{ answer.id }}" onclick="voteUp('{{ answer.id }}')">+</span>
+                        <span data-id="{{ answer.id }}" onclick="voteUp('{{ answer.id }}')"><button>+</button></span>
                     {% endif %}
 
                     {% if app.user and app.user.canVoteDown(answer) %}
-                    <span data-id="{{ answer.id }}" onclick="voteDown('{{ answer.id }}')">-</span>
+                    <span data-id="{{ answer.id }}" onclick="voteDown('{{ answer.id }}')"><button>-</button></span>
                     {% endif %}
+                </td>
+                <td>
+                    Rated: {{ answer.ratingTotal }}
                 </td>
             </tr>
         {% else %}
