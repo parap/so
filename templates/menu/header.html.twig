@@ -1,0 +1,10 @@
+{% if app.user %}
+    <div>Hello {{ app.user.username }}</div>
+    <a href="{{ url('app_logout') }}"><button>Logout</button></a>
+    <a href="{{ url('app_question_index') }}"><button>My questions</button></a>
+    <a href="{{ url('app_question_index') }}"><button>My answers</button></a>
+    <a href="{{ url('app_question_new') }}"><button>Ask Question</button></a>
+{% else %}
+    <a href="{{ url('app_login') }}">Login</a>
+    <a href="{{ url('app_register') }}">Register</a>
+{% endif %}

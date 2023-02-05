@@ -14,13 +14,7 @@
         {% endblock %}
     </head>
     <body>
-        {% if app.user %}
-            <div>Hello {{ app.user.username }}</div>
-            <a href="{{ url('app_logout') }}">Logout</a>
-        {% else %}
-            <a href="{{ url('app_login') }}">Login</a>
-            <a href="{{ url('app_register') }}">Register</a>
-        {% endif %}
+        {% include 'menu/header.html.twig' %}
 
         {% block body %}
             <br>
