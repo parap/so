@@ -7,7 +7,7 @@
     </tr>
     <tr>
         <th>Content</th>
-        <td>{{ question.content }}</td>
+        <td><a href="{{ url('app_question_show', {'id': question.id}) }}">{{ question.content }}</a></td>
         <td>
             {% if app.user and app.user.canAnswerQuestion(question) %}
             <a href="{{ url('app_answer_new', {'id': question.id}) }}"><button>Answer</button></a>
