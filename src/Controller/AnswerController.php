@@ -24,7 +24,7 @@ class AnswerController extends AbstractController
     public function index(AnswerRepository $answerRepository): Response
     {
         return $this->render('answer/index.html.twig', [
-            'answers' => $answerRepository->findAll(),
+            'answers' => $answerRepository->findByUser($this->getUser()),
         ]);
     }
 
@@ -44,6 +44,7 @@ class AnswerController extends AbstractController
 
         $answer = new Answer();
         $answer->setUser($user);
+        $answer->setQuestion($question);
         $form = $this->createForm(AnswerType::class, $answer);
         $form->handleRequest($request);
 
