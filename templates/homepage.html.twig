@@ -13,5 +13,9 @@
         {% else %}
             <div>No questions found</div>
         {% endfor %}
+
+        <hr/>
+
+        <a href="{{ url('app_question_new') }}"><button>Ask Question</button></a>
     </div>
 {% endblock %}

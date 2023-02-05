@@ -11,14 +11,18 @@
                 <th>{{ question.user.username }}</th>
                 <td><h3>{{ question.content }}</h3></td>
             </tr>
+            {% if question.answers.count > 0 %}
         <tr>
             <th colspan="2">Answers:</th>
         </tr>
+            {% endif %}
         {% for answer in question.answers %}
             <tr>
                 <th>{{ answer.user.username }}</th>
                 <td>{{ answer.content }}</td>
             </tr>
+        {% else %}
+            <th colspan="2">No answers yet</th>
         {% endfor %}
         </tbody>
     </table>
