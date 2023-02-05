@@ -15,7 +15,8 @@ class HomepageController extends AbstractController
     public function index(QuestionRepository $questionRepository): Response
     {
         return $this->render('homepage.html.twig', [
-            'questions' => $questionRepository->findAll()
+            'questions' => $questionRepository->findAll(),
+            'path' => $this->getParameter('avatars_directory')
 //            'registrationForm' => $form->createView(),
         ]);
 

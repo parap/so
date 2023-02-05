@@ -1,7 +1,7 @@
 <table class="table">
     <tbody>
     <tr>
-        <th>author</th>
+        <th>author {% if question.user.getAvatarFileName %}<img src="{{ path }}/{{ question.user.getAvatarFileName }}" class="avatar"/> {% endif %}</th>
         <td>{{ question.user.username }}</td>
         <td></td>
     </tr>
