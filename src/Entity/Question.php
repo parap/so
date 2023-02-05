@@ -25,7 +25,7 @@ class Question
     private $content;
 
     /**
-     * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="Question", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="question", orphanRemoval=true)
      */
     private $answers;
 
