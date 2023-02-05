@@ -82,6 +82,7 @@ class QuestionController extends AbstractController
      */
     public function delete(Request $request, Question $question, QuestionRepository $questionRepository): Response
     {
+        return new Response('Sorry, questions cannot be deleted');
         if ($this->isCsrfTokenValid('delete'.$question->getId(), $request->request->get('_token'))) {
             $questionRepository->remove($question, true);
         }
