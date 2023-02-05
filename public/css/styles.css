@@ -1,0 +1,9 @@
+img {
+    height: 130px;
+    width: 130px;
+}
+
+img.avatar {
+    height: 30px;
+    width: 30px;
+}

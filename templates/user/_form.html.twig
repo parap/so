@@ -1,6 +1,6 @@
 {{ form_start(form) }}
     {% if user.avatarFileName %}
-        <img src="{{ path }}/{{ user.avatarFileName }}" style="width: 100px; height: 100px;" />
+        <img src="{{ path }}/{{ user.avatarFileName }}" />
     {% endif %}
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
