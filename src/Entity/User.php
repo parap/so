@@ -59,6 +59,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $ratings;
 
+    /**
+     * @ORM\Column(type="string", length=1024, nullable=true)
+     */
+    private $avatarFileName;
+
     public function __construct()
     {
         $this->answers = new ArrayCollection();
@@ -362,6 +367,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             ->setUser($this)
             ->setAnswer($answer)
             ->setValue('-1');
+    }
+
+    public function getAvatarFileName(): ?string
+    {
+        return $this->avatarFileName;
+    }
+
+    public function setAvatarFileName(?string $avatarFileName): self
+    {
+        $this->avatarFileName = $avatarFileName;
+
+        return $this;
     }
 
 }
