@@ -289,7 +289,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function canVoteUp(Answer $answer)
     {
         if ($answer->getUser() === $this) {
-            return false;
+            echo 'this?';
         }
 
         foreach ($this->ratings as $userRating) {

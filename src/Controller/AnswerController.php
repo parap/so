@@ -7,7 +7,9 @@ use App\Entity\Question;
 use App\Entity\User;
 use App\Form\AnswerType;
 use App\Repository\AnswerRepository;
+use App\Repository\RatingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -95,5 +97,46 @@ class AnswerController extends AbstractController
         ]);
     }
 
-    
+    /**
+     * @Route("/vote-up/{id}", name="vote_up", methods={"GET", "POST"})
+     *
+     * @return JsonResponse|Response
+     * @throws \TypeError
+     */
+    public function voteUp(Answer $answer, RatingRepository $ratingRepository)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if (!$user->canVoteUp($answer)) {
+            return new Response('Could not vote answer up');
+        }
+
+        $rating = $user->voteUp($answer);
+
+        $ratingRepository->add($rating, true);
+
+        return new JsonResponse(['success' => true]);
+    }
+
+    /**
+     * @Route("/vote-down/{id}", name="vote_down", methods={"GET", "POST"})
+     * @return JsonResponse|Response
+     * @throws \TypeError
+     */
+    public function voteDown(RatingRepository $ratingRepository, Answer $answer)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if (!$user->canVoteDown($answer)) {
+            return new Response('Could not vote answer down');
+        }
+
+        $rating = $user->voteDown($answer);
+
+        $ratingRepository->add($rating, true);
+
+        return new JsonResponse(['success' => true]);
+    }
 }

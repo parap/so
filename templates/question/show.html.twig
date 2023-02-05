@@ -21,8 +21,14 @@
                 <th>{{ answer.user.username }}</th>
                 <td>
                     {{ answer.content }}
-                    {% if app.user and app.user.canVoteUp(answer) %}+{% endif %}
-                    {% if app.user and app.user.canVoteDown(answer) %}-{% endif %}
+
+                    {% if app.user and app.user.canVoteUp(answer) %}
+                    <span data-id="{{ answer.id }}" onclick="voteUp('{{ answer.id }}')">+</span>
+                    {% endif %}
+
+                    {% if app.user and app.user.canVoteDown(answer) %}
+                    <span data-id="{{ answer.id }}" onclick="voteDown('{{ answer.id }}')">-</span>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -37,4 +43,27 @@
     {% if app.user == question.user %}
         <a href="{{ path('app_question_edit', {'id': question.id}) }}">edit</a>
     {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        function voteUp(id) {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                location.reload()
+            }
+            const url = "{{ url('vote_up', {'id': 'XXXXX'}) }}".replace('XXXXX', id)
+            xhttp.open("GET", url);
+            xhttp.send();
+        }
+        function voteDown(id) {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                location.reload()
+            }
+            const url = "{{ url('vote_down', {'id': 'XXXXX'}) }}".replace('XXXXX', id)
+            xhttp.open("GET", url);
+            xhttp.send();
+        }
+    </script>
 {% endblock %}
