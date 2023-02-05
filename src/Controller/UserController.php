@@ -20,11 +20,13 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/edit/{id}", name="app_user_edit", methods={"GET", "POST"})
+     * @Route("/profile", name="app_user_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, User $user, UserRepository $userRepository,
+    public function edit(Request $request, UserRepository $userRepository,
                          UserPasswordHasherInterface $userPasswordHasher, SluggerInterface $slugger): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -76,6 +78,7 @@ class UserController extends AbstractController
         return $this->renderForm('user/edit.html.twig', [
             'user' => $user,
             'form' => $form,
+            'path' => $this->getParameter('avatars_web_directory')
         ]);
     }
 }
