@@ -13,6 +13,9 @@ class HomepageController extends AbstractController
      */
     public function index(): Response
     {
-        return new Response('Homepage');
+        return $this->render('homepage.html.twig', [
+//            'registrationForm' => $form->createView(),
+        ]);
+
     }
 }
