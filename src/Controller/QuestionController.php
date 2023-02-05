@@ -62,6 +62,10 @@ class QuestionController extends AbstractController
      */
     public function edit(Request $request, Question $question, QuestionRepository $questionRepository): Response
     {
+        if ($this->getUser() !== $question->getUser()) {
+            return new Response('Cannot edit question of another user');
+        }
+
         $form = $this->createForm(QuestionType::class, $question);
         $form->handleRequest($request);
 

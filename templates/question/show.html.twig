@@ -8,8 +8,8 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ question.id }}</td>
+                <th>Author</th>
+                <td>{{ question.user.username }}</td>
             </tr>
             <tr>
                 <th>Content</th>
@@ -20,5 +20,7 @@
 
     <a href="{{ path('app_question_index') }}">back to list</a>
 
-    <a href="{{ path('app_question_edit', {'id': question.id}) }}">edit</a>
+    {% if app.user == question.user %}
+        <a href="{{ path('app_question_edit', {'id': question.id}) }}">edit</a>
+    {% endif %}
 {% endblock %}
