@@ -125,7 +125,7 @@ class Answer
 
     public function getTotalRatingsCount(): ?int
     {
-        return $this->totalRatingsCount;
+        return (int)$this->totalRatingsCount;
     }
 
     public function setTotalRatingsCount(?int $totalRatingsCount): self
