@@ -79,7 +79,7 @@ class AnswerController extends AbstractController
     public function edit(Request $request, Answer $answer, AnswerRepository $answerRepository): Response
     {
         if ($this->getUser() !== $answer->getUser()) {
-            return new Response('Cannot edit question of another user');
+            return new Response('Cannot edit answer of another user');
         }
 
         $form = $this->createForm(AnswerType::class, $answer);
